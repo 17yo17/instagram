@@ -9,7 +9,6 @@ pod 'Appirater'
 
 # Firebase
 
-pod 'Firebase'
 pod 'Firebase/Core'
 pod 'Firebase/Auth'
 pod 'Firebase/Database' 
