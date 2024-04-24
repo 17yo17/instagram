@@ -15,12 +15,20 @@ class LoginViewController: UIViewController {
         static let cornerRadius: CGFloat = 8.0
     }
     
+    private let headerView: UIView = {
+        let header = UIView()
+        header.clipsToBounds = true
+        let backgroundImageView = UIImageView(image: UIImage(named: "gradient"))
+        header.addSubview(backgroundImageView)
+        return header
+    }()
+
     private let usernameEmailField: UITextField = {
         let field = UITextField()
-        field.placeholder = "Username or Email..."
+        field.placeholder = "Username or Email"
         field.returnKeyType = .next
         field.leftViewMode = .always
-        field.leftView = UIView(frame: CGRect(x: 0, y:0, width:100, height:0))
+        field.leftView = UIView(frame: CGRect(x: 0, y:0, width:10, height:0))
         field.autocapitalizationType = .none
         field.autocorrectionType = .no
         field.layer.masksToBounds = true
@@ -33,10 +41,11 @@ class LoginViewController: UIViewController {
     
     private let passwordField: UITextField = {
         let field = UITextField()
+        field.isSecureTextEntry = true
         field.placeholder = "Passoword"
         field.returnKeyType = .continue
         field.leftViewMode = .always
-        field.leftView = UIView(frame: CGRect(x: 0, y:0, width:100, height:0))
+        field.leftView = UIView(frame: CGRect(x: 0, y:0, width:10, height:0))
         field.autocapitalizationType = .none
         field.autocorrectionType = .no
         field.layer.masksToBounds = true
@@ -56,6 +65,12 @@ class LoginViewController: UIViewController {
         button.setTitleColor(.white, for: .normal)
         return button
     }()
+    private let createAccountButton: UIButton = {
+        let button = UIButton()
+        button.setTitleColor(.secondaryLabel, for: .normal)
+        button.setTitle("New User? Create an Account", for: .normal)
+        return button
+    }()
     
     private let termButton: UIButton = {
         let button = UIButton()
@@ -71,20 +86,7 @@ class LoginViewController: UIViewController {
         return button
     }()
 
-    private let createAccountButton: UIButton = {
-        let button = UIButton()
-        button.setTitleColor(.secondaryLabel, for: .normal)
-        button.setTitle("New User? Create an Account", for: .normal)
-        return UIButton()
-    }()
-    
-    private let headerView: UIView = {
-        let header = UIView()
-        header.clipsToBounds = true
-        let backgroundImageView = UIImageView(image: UIImage(named: "gradient"))
-        header.addSubview(backgroundImageView)
-        return header
-    }()
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,27 +97,21 @@ class LoginViewController: UIViewController {
             for: .touchUpInside
         )
         
-        loginButton.addTarget(
+        createAccountButton.addTarget(
             self,
             action: #selector(didTapCreateAccountButton),
             for: .touchUpInside
         )
-        
-        createAccountButton.addTarget(
+
+        termButton.addTarget(
             self,
             action: #selector(didTapTermButton),
             for: .touchUpInside
         )
         
-        termButton.addTarget(
-            self,
-            action: #selector(didTapPrivacyButton),
-            for: .touchUpInside
-        )
-        
         privacyButton.addTarget(
             self,
-            action: #selector(didTapLoginButton),
+            action: #selector(didTapPrivacyButton),
             for: .touchUpInside
         )
         
@@ -134,17 +130,24 @@ class LoginViewController: UIViewController {
             x: 0,
             y: 0,
             width: view.width,
-            height: 200/3.0
+            height: view.height/3.0
         )
         
         usernameEmailField.frame = CGRect(
             x: 25,
-            y: usernameEmailField.bottom + 40,
+            y: headerView.bottom + 40,
             width: view.width-50,
             height: 52.0
         )
         
         passwordField.frame = CGRect(
+            x: 25,
+            y: usernameEmailField.bottom + 10,
+            width: view.width-50,
+            height: 52.0
+        )
+        
+        loginButton.frame = CGRect(
             x: 25,
             y: passwordField.bottom + 10,
             width: view.width-50,
@@ -183,7 +186,6 @@ class LoginViewController: UIViewController {
             return
         }
         
-        
         guard let backgroundView = headerView.subviews.first else{
             return
         }
@@ -203,12 +205,13 @@ class LoginViewController: UIViewController {
     }
     
     private func addSubviews(){
+        view.addSubview(headerView)
         view.addSubview(usernameEmailField)
         view.addSubview(passwordField)
         view.addSubview(loginButton)
+        view.addSubview(createAccountButton)
         view.addSubview(termButton)
         view.addSubview(privacyButton)
-        view.addSubview(headerView )
     }
     
     @objc private func didTapLoginButton(){
@@ -281,4 +284,8 @@ extension LoginViewController: UITextFieldDelegate{
         }
         return true
     }
+}
+
+#Preview{
+    LoginViewController()
 }

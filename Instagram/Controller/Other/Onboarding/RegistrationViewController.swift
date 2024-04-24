@@ -17,10 +17,10 @@ class RegistrationViewController: UIViewController {
     
     private let usernameField: UITextField = {
         let field = UITextField()
-        field.placeholder = "Username..."
+        field.placeholder = "Username"
         field.returnKeyType = .next
         field.leftViewMode = .always
-        field.leftView = UIView(frame: CGRect(x: 0, y:0, width:100, height:0))
+        field.leftView = UIView(frame: CGRect(x: 0, y:0, width:10, height:0))
         field.autocapitalizationType = .none
         field.autocorrectionType = .no
         field.layer.masksToBounds = true
@@ -33,10 +33,10 @@ class RegistrationViewController: UIViewController {
     
     private let emailField: UITextField = {
         let field = UITextField()
-        field.placeholder = "Email Address..."
+        field.placeholder = "Email Address"
         field.returnKeyType = .next
         field.leftViewMode = .always
-        field.leftView = UIView(frame: CGRect(x: 0, y:0, width:100, height:0))
+        field.leftView = UIView(frame: CGRect(x: 0, y:0, width:10, height:0))
         field.autocapitalizationType = .none
         field.autocorrectionType = .no
         field.layer.masksToBounds = true
@@ -49,10 +49,11 @@ class RegistrationViewController: UIViewController {
     
     private let passwordField: UITextField = {
         let field = UITextField()
+        field.isSecureTextEntry = true
         field.placeholder = "Passoword"
         field.returnKeyType = .continue
         field.leftViewMode = .always
-        field.leftView = UIView(frame: CGRect(x: 0, y:0, width:100, height:0))
+        field.leftView = UIView(frame: CGRect(x: 0, y:0, width:10, height:0))
         field.autocapitalizationType = .none
         field.autocorrectionType = .no
         field.layer.masksToBounds = true
@@ -79,6 +80,7 @@ class RegistrationViewController: UIViewController {
         view.addSubview(emailField)
         view.addSubview(passwordField)
         view.addSubview(registerButton)
+        view.backgroundColor = .systemBackground
         // Do any additional setup after loading the view.
     }
     
@@ -111,13 +113,13 @@ class RegistrationViewController: UIViewController {
               }
         
         AuthManager.shared.registerNewUser(username: username, email: email, password: password){ registered in
-            DispatchQueue.main.sync {
+            DispatchQueue.main.async {
                 if registered{
                     // Registration is succeeded
-                    return
+                    
                 }
                 else{
-                    return
+                    
                 }
             }
         }
@@ -139,4 +141,8 @@ extension RegistrationViewController: UITextFieldDelegate{
         }
         return true
     }
+}
+
+#Preview{
+  RegistrationViewController()
 }
