@@ -67,4 +67,18 @@ public class AuthManager{
             print(username)
         }
     }
+    
+    /// Attempt to log out database user
+    public func logOut(completion: (Bool) -> Void){
+        do{
+            try Auth.auth().signOut()
+            completion(true)
+            return
+        }
+        catch{
+            completion(false)
+            print(error)
+            return
+        }
+    }
 }
