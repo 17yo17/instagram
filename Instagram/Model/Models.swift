@@ -10,7 +10,7 @@ import Foundation
 enum Gender{
     case male, female, other
 }
-
+ 
 struct User{
     let username: String
     let bio: String
