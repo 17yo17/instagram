@@ -32,7 +32,8 @@ class HomeViewController: UIViewController{
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        handleNotAuthenticated()
+        // UNCOMMENT LATER
+        //handleNotAuthenticated()
         
         do {
             try FirebaseAuth.Auth.auth().signOut()
